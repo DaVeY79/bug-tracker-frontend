@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadBugs, getUnresolvedBugs, resolveBug } from "../store/bugs";
+import {
+  loadBugs,
+  getUnresolvedBugs,
+  resolveBug,
+  removeBug,
+} from "../store/bugs";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 const Bugs = () => {
   const disptach = useDispatch();
@@ -11,14 +18,31 @@ const Bugs = () => {
   }, []);
 
   return (
-    <ul>
+    <Grid container spacing={2}>
       {bugs.map((bug) => (
-        <li key={bug.id}>
-          {bug.description}
-          <button onClick={() => disptach(resolveBug(bug.id))}>Resolve</button>
-        </li>
+        <Grid container item xs={12} spacing={2} key={bug.id}>
+          <Grid item>{bug.description}</Grid>
+          <Grid item>
+            <Button
+              onClick={() => disptach(resolveBug(bug.id))}
+              variant="outlined"
+              color="primary"
+            >
+              Resolve
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              onClick={() => disptach(removeBug(bug.id))}
+              variant="outlined"
+              color="secondary"
+            >
+              Delete
+            </Button>
+          </Grid>
+        </Grid>
       ))}
-    </ul>
+    </Grid>
   );
 };
 

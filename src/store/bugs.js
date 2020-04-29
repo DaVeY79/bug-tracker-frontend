@@ -95,6 +95,13 @@ export const resolveBug = (id) =>
     onSuccess: bugResolved.type,
   });
 
+export const removeBug = (id) =>
+  apiCallBegan({
+    url: url + "/" + id,
+    method: "delete",
+    onSuccess: bugRemoved.type,
+  });
+
 // Selector
 export const getUnresolvedBugs = createSelector(
   (state) => state.entities.bugs.list,
