@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+
 import {
   loadBugs,
   getUnresolvedBugs,
   resolveBug,
   removeBug,
 } from "../store/bugs";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 
 const Bugs = () => {
   const disptach = useDispatch();
