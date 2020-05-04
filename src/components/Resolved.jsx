@@ -8,15 +8,15 @@ import DoneIcon from "@material-ui/icons/Done";
 
 import {
   loadBugs,
-  getUnresolvedBugs,
+  getResolvedBugs,
   resolveBug,
   removeBug,
 } from "../store/bugs";
 import Table from "./common/table";
 
-const Bugs = () => {
+const Resolved = () => {
   const disptach = useDispatch();
-  const bugs = useSelector(getUnresolvedBugs);
+  const bugs = useSelector(getResolvedBugs);
 
   useEffect(() => {
     disptach(loadBugs());
@@ -32,36 +32,12 @@ const Bugs = () => {
       label: "Created",
     },
     {
-      id: "priority",
-      label: "priority",
+      id: "finished",
+      label: "finished",
     },
     {
       id: "status",
       label: "Status",
-    },
-    {
-      key: "resolve",
-      content: (bug) => (
-        <Button
-          onClick={() => disptach(resolveBug(bug.id))}
-          variant="outlined"
-          color="primary"
-        >
-          Resolve
-        </Button>
-      ),
-    },
-    {
-      key: "resolve",
-      content: (bug) => (
-        <Button
-          onClick={() => disptach(removeBug(bug.id))}
-          variant="outlined"
-          color="secondary"
-        >
-          Delete
-        </Button>
-      ),
     },
   ];
 
@@ -85,9 +61,9 @@ const Bugs = () => {
             color="secondary"
             startIcon={<DoneIcon />}
             component={Link}
-            to="issue-resolved"
+            to="issue"
           >
-            View Completed
+            View Remaining
           </Button>
         </Grid>
       </Grid>
@@ -98,4 +74,4 @@ const Bugs = () => {
   );
 };
 
-export default Bugs;
+export default Resolved;
