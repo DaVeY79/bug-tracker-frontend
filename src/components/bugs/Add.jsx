@@ -17,7 +17,6 @@ const AddBugs = () => {
       title: "",
       details: "",
       priority: "Low",
-      status: "Pending",
       userId: "",
     },
     errors: {},
@@ -70,7 +69,7 @@ const AddBugs = () => {
           rows={10}
         />
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={6}>
         <RadioButton
           formlabel="Priority"
           name="priority"
@@ -80,17 +79,7 @@ const AddBugs = () => {
           handleChange={handleChange}
         />
       </Grid>
-      <Grid item xs={4}>
-        <RadioButton
-          formlabel="Status"
-          name="status"
-          inputProps={{ "aria-label": "Radio A", row: false }}
-          radiolabels={["Pending", "Assigned", "Completed"]}
-          value={state.data.status}
-          handleChange={handleChange}
-        />
-      </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={6}>
         <SelectInput
           label="Assign To User"
           name="userId"
@@ -99,7 +88,7 @@ const AddBugs = () => {
           handleChange={handleChange}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={12}>
         <Button
           onClick={handleSave}
           disabled={state.data.title ? false : true}

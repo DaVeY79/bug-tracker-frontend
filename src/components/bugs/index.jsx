@@ -38,8 +38,13 @@ const Bugs = () => {
       label: "priority",
     },
     {
-      id: "status",
+      key: "status",
       label: "Status",
+      content: (bug) => (
+        <div>
+          {(bug.resolved && "Completed") || bug.userId ? "Assigned" : "Pending"}
+        </div>
+      ),
     },
     {
       key: "resolve",

@@ -21,8 +21,8 @@ const Resolved = () => {
 
   const columns = [
     {
-      id: "description",
-      label: "Task",
+      id: "title",
+      label: "Issues",
     },
     {
       id: "created",
@@ -33,8 +33,13 @@ const Resolved = () => {
       label: "finished",
     },
     {
-      id: "status",
+      key: "status",
       label: "Status",
+      content: (bug) => (
+        <div>
+          {bug.resolved ? "Completed" : bug.userId ? "Assigned" : "Pending"}
+        </div>
+      ),
     },
   ];
 
