@@ -18,6 +18,7 @@ import useQuery from "../hoc/useQuery";
 const Bugs = () => {
   const disptach = useDispatch();
   let query = useQuery();
+
   const bugs = useSelector(getUnresolvedBugs(query.get("project")));
 
   useEffect(() => {
@@ -74,8 +75,8 @@ const Bugs = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid container item xs={12} spacing={3}>
-        <Grid item xs={4}>
+      <Grid container item xs={12} spacing={3} justify="space-between">
+        <Grid item xs={3}>
           <Button
             variant="contained"
             color="primary"
@@ -86,7 +87,7 @@ const Bugs = () => {
             New issue
           </Button>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Button
             variant="contained"
             color="secondary"

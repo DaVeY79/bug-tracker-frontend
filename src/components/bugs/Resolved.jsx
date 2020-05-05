@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
-import DoneIcon from "@material-ui/icons/Done";
+import BuildIcon from "@material-ui/icons/Build";
 
 import { loadBugs, getResolvedBugs } from "../../store/bugs";
 import Table from "../common/table";
@@ -13,11 +13,18 @@ import useQuery from "../hoc/useQuery";
 const Resolved = () => {
   const disptach = useDispatch();
   let query = useQuery();
+  const history = useHistory();
   const bugs = useSelector(getResolvedBugs(query.get("project")));
 
   useEffect(() => {
     disptach(loadBugs());
   }, []);
+
+  const handleClick = () => {
+    console.log(history);
+    history.goBack();
+    // history.replace(`issue?project=${query.get("project")}`);
+  };
 
   const columns = [
     {
@@ -45,8 +52,8 @@ const Resolved = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid container item xs={12} spacing={3}>
-        <Grid item xs={4}>
+      <Grid container item xs={12} spacing={3} justify="space-between">
+        <Grid item xs={3}>
           <Button
             variant="contained"
             color="primary"
@@ -57,13 +64,14 @@ const Resolved = () => {
             New issue
           </Button>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Button
             variant="contained"
             color="secondary"
-            startIcon={<DoneIcon />}
+            startIcon={<BuildIcon />}
             component={Link}
-            to="issue"
+            // to={`issue?project=${query.get("project")}`}
+            onClick={handleClick}
           >
             View Remaining
           </Button>
