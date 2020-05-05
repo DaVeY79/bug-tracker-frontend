@@ -103,15 +103,17 @@ export const removeBug = (id) =>
   });
 
 // Selector
-export const getUnresolvedBugs = createSelector(
-  (state) => state.entities.bugs.list,
-  (bugs) => bugs.filter((bug) => !bug.resolved)
-);
+export const getUnresolvedBugs = (projectId) =>
+  createSelector(
+    (state) => state.entities.bugs.list,
+    (bugs) => bugs.filter((bug) => !bug.resolved && bug.projectId === projectId)
+  );
 
-export const getResolvedBugs = createSelector(
-  (state) => state.entities.bugs.list,
-  (bugs) => bugs.filter((bug) => bug.resolved)
-);
+export const getResolvedBugs = (projectId) =>
+  createSelector(
+    (state) => state.entities.bugs.list,
+    (bugs) => bugs.filter((bug) => bug.resolved && bug.projectId === projectId)
+  );
 
 export const getBugsByUser = (userId) =>
   createSelector(

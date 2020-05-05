@@ -11,12 +11,14 @@ import {
   getUnresolvedBugs,
   resolveBug,
   removeBug,
-} from "../store/bugs";
-import Table from "./common/table";
+} from "../../store/bugs";
+import Table from "../common/table";
+import useQuery from "../hoc/useQuery";
 
 const Bugs = () => {
   const disptach = useDispatch();
-  const bugs = useSelector(getUnresolvedBugs);
+  let query = useQuery();
+  const bugs = useSelector(getUnresolvedBugs(query.get("project")));
 
   useEffect(() => {
     disptach(loadBugs());
@@ -25,7 +27,7 @@ const Bugs = () => {
   const columns = [
     {
       id: "description",
-      label: "Task",
+      label: "Issues",
     },
     {
       id: "created",
@@ -74,7 +76,7 @@ const Bugs = () => {
             color="primary"
             startIcon={<AddIcon />}
             component={Link}
-            to="issue/new"
+            to={`issue/new?project=${query.get("project")}`}
           >
             New issue
           </Button>
@@ -85,7 +87,7 @@ const Bugs = () => {
             color="secondary"
             startIcon={<DoneIcon />}
             component={Link}
-            to="issue-resolved"
+            to={`issue-resolved?project=${query.get("project")}`}
           >
             View Completed
           </Button>

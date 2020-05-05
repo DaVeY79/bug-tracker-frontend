@@ -6,17 +6,14 @@ import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import DoneIcon from "@material-ui/icons/Done";
 
-import {
-  loadBugs,
-  getResolvedBugs,
-  resolveBug,
-  removeBug,
-} from "../store/bugs";
-import Table from "./common/table";
+import { loadBugs, getResolvedBugs } from "../../store/bugs";
+import Table from "../common/table";
+import useQuery from "../hoc/useQuery";
 
 const Resolved = () => {
   const disptach = useDispatch();
-  const bugs = useSelector(getResolvedBugs);
+  let query = useQuery();
+  const bugs = useSelector(getResolvedBugs(query.get("project")));
 
   useEffect(() => {
     disptach(loadBugs());

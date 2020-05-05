@@ -4,11 +4,13 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 
 import { useDispatch } from "react-redux";
-import { addBug } from "../store/bugs";
+import { addBug } from "../../store/bugs";
+import useQuery from "../hoc/useQuery";
 
 const AddBugs = () => {
   const [state, setState] = useState({ bug: "" });
   const dispatch = useDispatch();
+  const query = useQuery();
 
   const handleInput = (e) => {
     const value = { ...state };
@@ -17,7 +19,9 @@ const AddBugs = () => {
   };
 
   const handleAddBug = () => {
-    dispatch(addBug({ description: state.bug }));
+    dispatch(
+      addBug({ description: state.bug, projectId: query.get("project") })
+    );
     setState({ bug: "" });
   };
 
@@ -42,6 +46,7 @@ const AddBugs = () => {
           Add Bug
         </Button>
       </Grid>
+      Priority : Low, Medium, High | Status : Pending, Assigned, Completed
     </Grid>
   );
 };
