@@ -26,7 +26,7 @@ const Bugs = () => {
 
   const columns = [
     {
-      id: "description",
+      id: "title",
       label: "Issues",
     },
     {

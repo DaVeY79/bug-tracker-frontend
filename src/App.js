@@ -6,28 +6,25 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import configureStore from "./store/configureStore";
 import Routes from "./routes";
 import Theme from "./theme";
+import Header from "./components/Header";
 
 const store = configureStore();
 
 function App() {
   const applyTheme = createMuiTheme(Theme);
   return (
-    <div className="App">
-      <Provider store={store}>
-        <MuiThemeProvider theme={applyTheme}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <header className="App-header">
-                <h1>Bug Tracker</h1>
-              </header>
-            </Grid>
-            <Grid item xs={12}>
-              <Routes />
-            </Grid>
+    <Provider store={store}>
+      <MuiThemeProvider theme={applyTheme}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Header />
           </Grid>
-        </MuiThemeProvider>
-      </Provider>
-    </div>
+          <Grid item xs={12} style={{ padding: 20 }}>
+            <Routes />
+          </Grid>
+        </Grid>
+      </MuiThemeProvider>
+    </Provider>
   );
 }
 
