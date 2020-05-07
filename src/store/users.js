@@ -56,8 +56,13 @@ export const loadUsers = () => (dispatch, getState) => {
 };
 
 // Selector
-export const getUsers = (projectId) =>
+export const getUsersByProject = (projectId) =>
   createSelector(
     (state) => state.entities.users.list,
     (users) => users.filter((user) => user.projectId.includes(projectId))
   );
+
+export const getUsers = createSelector(
+  (state) => state.entities.users.list,
+  (users) => users
+);

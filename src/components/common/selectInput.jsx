@@ -59,11 +59,12 @@ export default function SelectInput(props) {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          {items.map((item, index) => (
-            <MenuItem key={index} value={item.id}>
-              {item.name}
-            </MenuItem>
-          ))}
+          {items.length !== 0 &&
+            items.map((item, index) => (
+              <MenuItem key={index} value={item.id}>
+                {item.name}
+              </MenuItem>
+            ))}
         </Select>
         {errors ? <FormHelperText>{errors}</FormHelperText> : ""}
       </FormControl>

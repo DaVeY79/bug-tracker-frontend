@@ -6,8 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addBug } from "../../store/bugs";
-import { loadUsers, getUsers } from "../../store/users";
-import useQuery from "../hoc/useQuery";
+import { loadUsers, getUsersByProject } from "../../store/users";
+import useQuery from "../hooks/useQuery";
 import RadioButton from "../common/radioButton";
 import SelectInput from "../common/selectInput";
 
@@ -25,7 +25,7 @@ const AddBugs = () => {
   const dispatch = useDispatch();
   const query = useQuery();
   const history = useHistory();
-  const users = useSelector(getUsers(query.get("project")));
+  const users = useSelector(getUsersByProject(query.get("project")));
 
   useEffect(() => {
     dispatch(loadUsers());

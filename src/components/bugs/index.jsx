@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import DoneIcon from "@material-ui/icons/Done";
+import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import {
   loadBugs,
@@ -29,6 +32,7 @@ const Bugs = () => {
     {
       id: "title",
       label: "Issues",
+      content: (bug) => <Link to={`issue/${bug.id}`}>{bug.title}</Link>,
     },
     {
       id: "created",
@@ -49,26 +53,23 @@ const Bugs = () => {
     },
     {
       key: "resolve",
+      label: "resolve",
       content: (bug) => (
-        <Button
+        <IconButton
           onClick={() => disptach(resolveBug(bug.id))}
-          variant="outlined"
           color="primary"
         >
-          Resolve
-        </Button>
+          <DoneOutlineIcon />
+        </IconButton>
       ),
     },
     {
-      key: "resolve",
+      key: "delete",
+      label: "delete",
       content: (bug) => (
-        <Button
-          onClick={() => disptach(removeBug(bug.id))}
-          variant="outlined"
-          color="secondary"
-        >
-          Delete
-        </Button>
+        <IconButton onClick={() => disptach(removeBug(bug.id))} color="inherit">
+          <DeleteIcon />
+        </IconButton>
       ),
     },
   ];

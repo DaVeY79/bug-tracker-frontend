@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
 
 import { loadProjects, getProjects } from "../../store/projects";
 import Table from "../common/table";
@@ -31,6 +33,18 @@ const Projects = () => {
     {
       id: "members",
       label: "members",
+    },
+    {
+      key: "edit",
+      content: (project) => (
+        <IconButton
+          component={Link}
+          to={`project/${project.id}`}
+          color="inherit"
+        >
+          <EditIcon />
+        </IconButton>
+      ),
     },
   ];
 
