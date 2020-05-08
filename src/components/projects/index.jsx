@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+import LinkTag from "@material-ui/core/Link";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -23,7 +24,14 @@ const Projects = () => {
       id: "name",
       label: "Name",
       content: (project) => (
-        <Link to={`issue?project=${project.id}`}>{project.name}</Link>
+        <LinkTag
+          variant="body1"
+          color="secondary"
+          component={Link}
+          to={`issue?project=${project.id}`}
+        >
+          {project.name}
+        </LinkTag>
       ),
     },
     {

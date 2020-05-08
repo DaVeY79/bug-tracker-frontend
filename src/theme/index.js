@@ -1,5 +1,5 @@
 import primaryColor from "@material-ui/core/colors/green";
-import secondaryColor from "@material-ui/core/colors/deepPurple";
+import secondaryColor from "@material-ui/core/colors/teal";
 
 export default {
   palette: {
