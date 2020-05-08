@@ -41,7 +41,7 @@ export default function RadioButtons(props) {
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{formlabel}</FormLabel>
-      <RadioGroup defaultValue={value} name="customized-radios" {...inputProps}>
+      <RadioGroup value={value} name="customized-radios" {...inputProps}>
         {radiolabels.map((label, index) => (
           <FormControlLabel
             key={index}
