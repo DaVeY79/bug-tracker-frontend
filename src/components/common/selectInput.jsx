@@ -52,6 +52,7 @@ export default function SelectInput(props) {
           id="demo-simple-select-outlined"
           autoWidth={true}
           value={value}
+          defaultValue={value}
           name={name}
           onChange={handleChange}
           labelWidth={labelWidth}

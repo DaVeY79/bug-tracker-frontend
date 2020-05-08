@@ -46,6 +46,7 @@ const AddBugs = () => {
     const value = { ...state };
     value.data = { ...value.data, ...bug[0] };
     if (bug.length !== 0 && !didMount.current) {
+      console.log("populate", value, bug[0]);
       setState(value);
       didMount.current = true;
     }
@@ -105,6 +106,7 @@ const AddBugs = () => {
         />
       </Grid>
       <Grid item xs={6}>
+        {console.log("userId", state.data.userId)}
         <SelectInput
           label="Assign To User"
           name="userId"
