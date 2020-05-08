@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory, useParams } from "react-router-dom";
 import TextFeild from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -7,7 +8,12 @@ import SelectInput from "../common/selectInput";
 import MultiSelect from "../common/multiSelect";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addProject } from "../../store/projects";
+import {
+  addProject,
+  updateProject,
+  loadProjects,
+  getProject,
+} from "../../store/projects";
 import { getUsers, loadUsers } from "../../store/users";
 
 const AddProjects = () => {
@@ -19,12 +25,34 @@ const AddProjects = () => {
     },
     errors: {},
   });
+  const didMount = React.useRef(false);
+
   const dispatch = useDispatch();
+  const params = useParams();
+  const history = useHistory();
   const users = useSelector(getUsers);
+  const project = useSelector(getProject(params.id));
 
   React.useEffect(() => {
+    dispatch(loadProjects());
     dispatch(loadUsers());
   }, []);
+
+  React.useEffect(() => {
+    populateProject();
+  }, [project]);
+
+  const populateProject = () => {
+    if (params.id === "new") return;
+
+    const value = { ...state };
+    value.data = { ...value.data, ...project[0] };
+
+    if (project.length !== 0 && !didMount.current) {
+      setState(value);
+      didMount.current = true;
+    }
+  };
 
   const handleChange = (e) => {
     const value = { ...state };
@@ -35,7 +63,12 @@ const AddProjects = () => {
 
   const handleSave = () => {
     console.log(state.data);
-    dispatch(addProject({ ...state.data }));
+    if (params.id === "new") {
+      dispatch(addProject({ ...state.data }));
+    } else {
+      dispatch(updateProject(params.id, state.data));
+    }
+    history.goBack();
   };
 
   return (

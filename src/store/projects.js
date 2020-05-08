@@ -25,11 +25,18 @@ const slice = createSlice({
     projectAdded: (projects, action) => {
       projects.list.push(action.payload);
     },
+    projectUpdated: (projects, action) => {
+      const index = projects.list.findIndex(
+        (project) => project.id === action.payload.id
+      );
+      projects.list[index] = action.payload;
+    },
   },
 });
 
 const {
   projectAdded,
+  projectUpdated,
   projectsRequested,
   projectsReceived,
   projectsRequestFailed,
@@ -43,7 +50,7 @@ export const loadProjects = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.projects;
 
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
-  if (diffInMinutes < 10) return;
+  // if (diffInMinutes < 10) return;
 
   return dispatch(
     apiCallBegan({
@@ -63,8 +70,22 @@ export const addProject = (project) =>
     onSuccess: projectAdded.type,
   });
 
+export const updateProject = (projectId, project) =>
+  apiCallBegan({
+    url: url + "/" + projectId,
+    method: "patch",
+    data: project,
+    onSuccess: projectUpdated.type,
+  });
+
 //selector
 export const getProjects = createSelector(
   (state) => state.entities.projects.list,
   (projects) => projects
 );
+
+export const getProject = (projectId) =>
+  createSelector(
+    (state) => state.entities.projects.list,
+    (projects) => projects.filter((project) => project.id == projectId)
+  );

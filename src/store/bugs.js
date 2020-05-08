@@ -84,11 +84,11 @@ export const addBug = (bug) =>
     onSuccess: bugAdded.type,
   });
 
-export const updateBug = (bugId, data) =>
+export const updateBug = (bugId, bug) =>
   apiCallBegan({
     url: url + "/" + bugId,
     method: "patch",
-    data: data,
+    data: bug,
     onSuccess: bugUpdated.type,
   });
 

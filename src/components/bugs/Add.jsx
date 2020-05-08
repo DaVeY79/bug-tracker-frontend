@@ -46,8 +46,6 @@ const AddBugs = () => {
     const value = { ...state };
     value.data = { ...value.data, ...bug[0] };
     if (bug.length !== 0 && !didMount.current) {
-      console.log("populate bug", bug[0]);
-      console.log("populate bug", value);
       setState(value);
       didMount.current = true;
     }
@@ -60,7 +58,7 @@ const AddBugs = () => {
   };
 
   const handleSave = () => {
-    console.log(state.data);
+    // console.log(state.data);
     if (params.id === "new") {
       dispatch(addBug({ ...state.data, projectId: query.get("project") }));
     } else {
