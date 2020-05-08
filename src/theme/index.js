@@ -1,5 +1,6 @@
 import primaryColor from "@material-ui/core/colors/green";
-import secondaryColor from "@material-ui/core/colors/teal";
+import secondaryColor from "@material-ui/core/colors/red";
+import contrastColor from "@material-ui/core/colors/grey";
 
 export default {
   palette: {
@@ -7,13 +8,13 @@ export default {
       light: primaryColor[200],
       main: primaryColor[400],
       dark: primaryColor[700],
-      contrastText: "#000",
+      contrastText: contrastColor[200],
     },
     secondary: {
       light: secondaryColor[200],
       main: secondaryColor[400],
       dark: secondaryColor[700],
-      contrastText: "#fff",
+      contrastText: contrastColor[200],
     },
   },
 };

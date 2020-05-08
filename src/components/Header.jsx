@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  appBar: {
+
+  toolbar: {
     justifyContent: "space-between",
   },
   title: {
@@ -38,7 +39,7 @@ export default function MenuAppBar() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
           <IconButton edge="start" color="inherit" aria-label="menu">
             <BugReportIcon />
             <Typography variant="h6" className={classes.title}>

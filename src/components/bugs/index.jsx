@@ -5,9 +5,9 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import LinkTag from "@material-ui/core/Link";
-import AddIcon from "@material-ui/icons/Add";
-import DoneIcon from "@material-ui/icons/Done";
-import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
+import AddBugIcon from "@material-ui/icons/PostAdd";
+import BugResolvedIcon from "@material-ui/icons/PlaylistAddCheck";
+import ResolveIcon from "@material-ui/icons/DoneOutline";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 import {
@@ -18,6 +18,7 @@ import {
   removeBug,
 } from "../../store/bugs";
 import Table from "../common/table";
+import Status from "../common/status";
 import useQuery from "../hooks/useQuery";
 
 const Bugs = () => {
@@ -25,7 +26,6 @@ const Bugs = () => {
   let query = useQuery();
   const projectId = query.get("project");
   const resolved = query.get("resolved");
-
   const bugs = useSelector(
     resolved ? getResolvedBugs(projectId) : getUnresolvedBugs(projectId)
   );
@@ -60,11 +60,8 @@ const Bugs = () => {
     {
       key: "status",
       label: "Status",
-      content: (bug) => (
-        <div>
-          {(bug.resolved && "Completed") || bug.userId ? "Assigned" : "Pending"}
-        </div>
-      ),
+      align: "center",
+      content: (bug) => <Status bug={bug} />,
     },
     {
       key: "resolve",
@@ -74,7 +71,7 @@ const Bugs = () => {
           onClick={() => disptach(resolveBug(bug.id))}
           color="primary"
         >
-          <DoneOutlineIcon />
+          <ResolveIcon />
         </IconButton>
       ),
     },
@@ -116,33 +113,30 @@ const Bugs = () => {
     {
       key: "status",
       label: "Status",
-      content: (bug) => (
-        <div>
-          {(bug.resolved && "Completed") || bug.userId ? "Assigned" : "Pending"}
-        </div>
-      ),
+      align: "center",
+      content: (bug) => <Status bug={bug} />,
     },
   ];
 
   return (
     <Grid container spacing={3}>
-      <Grid container item xs={12} spacing={3} justify="space-between">
-        <Grid item xs={3}>
+      <Grid container item xs={12} justify="space-between">
+        <Grid item xs={2}>
           <Button
             variant="contained"
             color="primary"
-            startIcon={<AddIcon />}
+            startIcon={<AddBugIcon />}
             component={Link}
             to={`issue/new?project=${query.get("project")}`}
           >
             New issue
           </Button>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2.5}>
           <Button
             variant="contained"
             color="secondary"
-            startIcon={<DoneIcon />}
+            startIcon={<BugResolvedIcon />}
             component={Link}
             to={`issue?project=${query.get("project")}&resolved=${true}`}
           >
