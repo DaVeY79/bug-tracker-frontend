@@ -59,7 +59,7 @@ export const loadBugs = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.bugs;
 
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
-  if (diffInMinutes < 10) return;
+  // if (diffInMinutes < 10) return;
 
   return dispatch(
     apiCallBegan({
@@ -77,6 +77,14 @@ export const addBug = (bug) =>
     method: "post",
     data: bug,
     onSuccess: bugAdded.type,
+  });
+
+export const updateBug = (bugId, data) =>
+  apiCallBegan({
+    url: url + "/" + bugId,
+    method: "patch",
+    data: data,
+    onSuccess: bugAssignedToUser.type,
   });
 
 export const assignBugToUser = (bugId, userId) =>

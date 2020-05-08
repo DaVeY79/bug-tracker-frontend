@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addBug, loadBugs, getBug } from "../../store/bugs";
+import { addBug, updateBug, loadBugs, getBug } from "../../store/bugs";
 import { loadUsers, getUsersByProject } from "../../store/users";
 import useQuery from "../hooks/useQuery";
 import RadioButton from "../common/radioButton";
@@ -58,8 +58,13 @@ const AddBugs = () => {
   };
 
   const handleSave = () => {
-    // console.log(state.data);
-    dispatch(addBug({ ...state.data, projectId: query.get("project") }));
+    console.log(state.data);
+    if (params.id === "new") {
+      dispatch(addBug({ ...state.data, projectId: query.get("project") }));
+    } else {
+      dispatch(updateBug(params.id, state.data));
+    }
+
     history.goBack();
   };
 
