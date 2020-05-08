@@ -1,13 +1,14 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+
 import TextFeild from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
 import SelectInput from "../common/selectInput";
 import MultiSelect from "../common/multiSelect";
-
-import { useDispatch, useSelector } from "react-redux";
 import {
   addProject,
   updateProject,
@@ -74,7 +75,9 @@ const AddProjects = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        Add New Project
+        <Typography variant="h6">
+          {params.id === "new" ? "Add New Project" : "Update Existing Project"}
+        </Typography>
       </Grid>
       <Grid item xs={12}>
         <TextFeild
@@ -112,7 +115,7 @@ const AddProjects = () => {
           variant="contained"
           color="primary"
         >
-          Add Project
+          {params.id === "new" ? "Add Project" : "Update Project"}
         </Button>
       </Grid>
     </Grid>

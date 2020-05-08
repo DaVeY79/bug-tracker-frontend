@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+
 import TextFeild from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import { useDispatch, useSelector } from "react-redux";
+import Typography from "@material-ui/core/Typography";
 
 import { addBug, updateBug, loadBugs, getBug } from "../../store/bugs";
 import { loadUsers, getUsersByProject } from "../../store/users";
@@ -71,6 +73,11 @@ const AddBugs = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
+        <Typography variant="h6">
+          {params.id === "new" ? "Add New Bug" : "Update Existing Bug"}
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
         <TextFeild
           value={state.data.title}
           name="title"
@@ -120,7 +127,7 @@ const AddBugs = () => {
           variant="contained"
           color="primary"
         >
-          Add Bug
+          {params.id === "new" ? "Add Bug" : "Update bug"}
         </Button>
       </Grid>
     </Grid>
