@@ -54,15 +54,20 @@ export default function MultipleSelect(props) {
           id="demo-mutiple-checkbox"
           multiple
           value={value}
+          defaultValue={value}
           name={name}
           onChange={handleChange}
           input={<Input labelWidth={labelWidth} />}
-          renderValue={(selected) => selected.map((item) => `${item.name}, `)}
+          renderValue={(selected) =>
+            selected.map(
+              (item) => `${items.filter((itm) => itm.id === item)[0].name}, `
+            )
+          }
           MenuProps={MenuProps}
         >
           {items.map((item, index) => (
-            <MenuItem key={index} value={item}>
-              <Checkbox checked={value.indexOf(item) > -1} color="primary" />
+            <MenuItem key={index} value={item.id}>
+              <Checkbox checked={value.indexOf(item.id) > -1} color="primary" />
               <ListItemText primary={item.name} />
             </MenuItem>
           ))}

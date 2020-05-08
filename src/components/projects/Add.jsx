@@ -12,9 +12,12 @@ import { getUsers, loadUsers } from "../../store/users";
 
 const AddProjects = () => {
   const [state, setState] = React.useState({
-    name: "",
-    managerId: "",
-    userIds: [],
+    data: {
+      name: "",
+      managerId: "",
+      userIds: [],
+    },
+    errors: {},
   });
   const dispatch = useDispatch();
   const users = useSelector(getUsers);
@@ -25,12 +28,14 @@ const AddProjects = () => {
 
   const handleChange = (e) => {
     const value = { ...state };
-    value[e.target.name] = e.target.value;
+    // console.log(e.target.name, ": ", e.target.value);
+    value.data[e.target.name] = e.target.value;
     setState(value);
   };
 
-  const handleAddProject = () => {
-    dispatch(addProject({ ...state.project }));
+  const handleSave = () => {
+    console.log(state.data);
+    dispatch(addProject({ ...state.data }));
   };
 
   return (
@@ -40,10 +45,11 @@ const AddProjects = () => {
       </Grid>
       <Grid item xs={12}>
         <TextFeild
-          value={state.name}
+          value={state.data.name}
           name="name"
           onChange={handleChange}
           label="Project Name"
+          placeholder="Write name of Project here..."
           variant="outlined"
           fullWidth
         />
@@ -53,7 +59,7 @@ const AddProjects = () => {
           label=" Project Manager"
           name="managerId"
           items={users}
-          value={state.managerId}
+          value={state.data.managerId}
           handleChange={handleChange}
         />
       </Grid>
@@ -62,14 +68,14 @@ const AddProjects = () => {
           label="Add Users"
           name="userIds"
           items={users}
-          value={state.userIds}
+          value={state.data.userIds}
           handleChange={handleChange}
         />
       </Grid>
       <Grid item xs={2}>
         <Button
-          onClick={handleAddProject}
-          disabled={state.name ? false : true}
+          onClick={handleSave}
+          disabled={state.data.name ? false : true}
           variant="contained"
           color="primary"
         >
