@@ -25,6 +25,10 @@ const slice = createSlice({
     bugAdded: (bugs, action) => {
       bugs.list.push(action.payload);
     },
+    bugUpdated: (bugs, action) => {
+      const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
+      bugs.list[index] = action.payload;
+    },
     bugRemoved: (bugs, action) => {
       const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
       bugs.list.splice(index, 1);
@@ -46,6 +50,7 @@ const {
   bugsReceived,
   bugsRequestFailed,
   bugAdded,
+  bugUpdated,
   bugRemoved,
   bugResolved,
   bugAssignedToUser,
@@ -84,7 +89,7 @@ export const updateBug = (bugId, data) =>
     url: url + "/" + bugId,
     method: "patch",
     data: data,
-    onSuccess: bugAssignedToUser.type,
+    onSuccess: bugUpdated.type,
   });
 
 export const assignBugToUser = (bugId, userId) =>
