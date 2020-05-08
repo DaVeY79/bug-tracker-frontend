@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import TextFeild from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addBug } from "../../store/bugs";
+import { addBug, loadBugs, getBug } from "../../store/bugs";
 import { loadUsers, getUsersByProject } from "../../store/users";
 import useQuery from "../hooks/useQuery";
 import RadioButton from "../common/radioButton";
@@ -23,13 +23,28 @@ const AddBugs = () => {
   });
 
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadBugs());
+    dispatch(loadUsers());
+    // populateBug();
+  }, []);
+
+  const params = useParams();
   const query = useQuery();
   const history = useHistory();
-  const users = useSelector(getUsersByProject(query.get("project")));
 
-  useEffect(() => {
-    dispatch(loadUsers());
-  }, []);
+  const users = useSelector(getUsersByProject(query.get("project")));
+  const updateBug = useSelector(getBug(params.id));
+  // console.log("update", updateBug);
+
+  const populateBug = () => {
+    if (params.id === "new") return;
+
+    const value = { ...state };
+    value.data = { ...value.data, ...updateBug[0] };
+    console.log("value", value.data);
+    setState(value);
+  };
 
   const handleChange = (e) => {
     const value = { ...state };

@@ -115,6 +115,12 @@ export const getResolvedBugs = (projectId) =>
     (bugs) => bugs.filter((bug) => bug.resolved && bug.projectId === projectId)
   );
 
+export const getBug = (bugId) =>
+  createSelector(
+    (state) => state.entities.bugs.list,
+    (bugs) => bugs.filter((bug) => bug.id == bugId)
+  );
+
 export const getBugsByUser = (userId) =>
   createSelector(
     (state) => state.entities.bugs.list,

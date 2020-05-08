@@ -1,5 +1,5 @@
-import primaryColor from "@material-ui/core/colors/green";
-import secondaryColor from "@material-ui/core/colors/red";
+import primaryColor from "@material-ui/core/colors/deepPurple";
+import secondaryColor from "@material-ui/core/colors/green";
 import contrastColor from "@material-ui/core/colors/grey";
 
 export default {

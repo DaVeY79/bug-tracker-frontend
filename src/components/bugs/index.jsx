@@ -22,7 +22,7 @@ import Status from "../common/status";
 import useQuery from "../hooks/useQuery";
 
 const Bugs = () => {
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
   let query = useQuery();
   const projectId = query.get("project");
   const resolved = query.get("resolved");
@@ -31,7 +31,7 @@ const Bugs = () => {
   );
 
   useEffect(() => {
-    disptach(loadBugs());
+    dispatch(loadBugs());
   }, []);
 
   const columns = [
@@ -68,7 +68,7 @@ const Bugs = () => {
       label: "resolve",
       content: (bug) => (
         <IconButton
-          onClick={() => disptach(resolveBug(bug.id))}
+          onClick={() => dispatch(resolveBug(bug.id))}
           color="primary"
         >
           <ResolveIcon />
@@ -79,7 +79,7 @@ const Bugs = () => {
       key: "delete",
       label: "delete",
       content: (bug) => (
-        <IconButton onClick={() => disptach(removeBug(bug.id))} color="inherit">
+        <IconButton onClick={() => dispatch(removeBug(bug.id))} color="inherit">
           <DeleteIcon />
         </IconButton>
       ),
