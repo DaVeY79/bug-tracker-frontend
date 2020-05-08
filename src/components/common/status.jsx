@@ -14,11 +14,11 @@ export default function Status({ bug }) {
   return (
     <div>
       {bug.resolved ? (
-        <TextBox text="Completed" bgcolor="lime" />
+        <TextBox text="Completed" bgcolor="success.main" color="yellow" />
       ) : bug.userId ? (
-        <TextBox text="Assigned" bgcolor="yellow" />
+        <TextBox text="Assigned" bgcolor="darkgrey" color="yellow" />
       ) : (
-        <TextBox text="Pending..." bgcolor="white" color="red" />
+        <TextBox text="Pending..." bgcolor="white" color="error.main" />
       )}
     </div>
   );

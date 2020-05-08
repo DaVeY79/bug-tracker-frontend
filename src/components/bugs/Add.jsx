@@ -21,29 +21,34 @@ const AddBugs = () => {
     },
     errors: {},
   });
+  const didMount = React.useRef(false);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadBugs());
-    dispatch(loadUsers());
-    // populateBug();
-  }, []);
-
   const params = useParams();
   const query = useQuery();
   const history = useHistory();
 
   const users = useSelector(getUsersByProject(query.get("project")));
-  const updateBug = useSelector(getBug(params.id));
-  // console.log("update", updateBug);
+  const bug = useSelector(getBug(params.id));
+
+  useEffect(() => {
+    dispatch(loadBugs());
+    dispatch(loadUsers());
+  }, []);
+
+  useEffect(() => {
+    populateBug();
+  }, [bug]);
 
   const populateBug = () => {
     if (params.id === "new") return;
 
     const value = { ...state };
-    value.data = { ...value.data, ...updateBug[0] };
-    console.log("value", value.data);
-    setState(value);
+    value.data = { ...value.data, ...bug[0] };
+    if (bug.length !== 0 && !didMount.current) {
+      setState(value);
+      didMount.current = true;
+    }
   };
 
   const handleChange = (e) => {
@@ -62,7 +67,7 @@ const AddBugs = () => {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <TextFeild
-          value={state.title}
+          value={state.data.title}
           name="title"
           onChange={handleChange}
           label="Bug Title"
@@ -73,7 +78,7 @@ const AddBugs = () => {
       </Grid>
       <Grid item xs={12}>
         <TextFeild
-          value={state.details}
+          value={state.data.details}
           name="details"
           onChange={handleChange}
           label="Bug Description"

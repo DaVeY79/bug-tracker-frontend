@@ -43,7 +43,7 @@ const Bugs = () => {
           variant="body1"
           color="secondary"
           component={Link}
-          to={`issue/${bug.id}`}
+          to={`issue/${bug.id}?project=${query.get("project")}`}
         >
           {bug.title}
         </LinkTag>
@@ -95,7 +95,7 @@ const Bugs = () => {
           variant="body1"
           color="secondary"
           component={Link}
-          to={`issue/${bug.id}`}
+          to={`issue/${bug.id}?project=${query.get("project")}`}
         >
           {bug.title}
         </LinkTag>
