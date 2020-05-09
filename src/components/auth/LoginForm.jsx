@@ -1,22 +1,48 @@
 import React, { useState, useEffect } from "react";
-// import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
+
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import FormLabel from "@material-ui/core/FormLabel";
+import Typography from "@material-ui/core/Typography";
 // import auth from "../../services/authService";
 
-import backgroundImage from "../../assets/login_background.jpg";
+// import backgroundImage from "../../assets/login_background.jpg";
 import TextInput from "../common/textInput";
 
 import { makeStyles } from "@material-ui/core/styles";
+import LinkTag from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.primary.main,
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: "#fff",
   },
+  formContainer: {
+    padding: 30,
+    backgroundColor: "white",
+    width: 450,
+    height: 500,
+    borderRadius: 15,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+    paddingBottom: 0,
+    paddingTop: 0,
+  },
+  description: {
+    paddingTop: 0,
+  },
+  button: { width: "100%", height: 45 },
 }));
 
 export default function LoginForm(props) {
@@ -61,64 +87,27 @@ export default function LoginForm(props) {
   };
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
-        height: "100%",
-      }}
-    >
+    <div className={classes.root}>
       <Backdrop className={classes.backdrop} open={open}>
         <CircularProgress color="inherit" />
       </Backdrop>
       <Grid
         container
-        style={{
-          padding: 30,
-          backgroundColor: "white",
-          width: 350,
-          alignSelf: "center",
-          position: "absolute",
-          marginLeft: "20%",
-          marginTop: "5%",
-          borderRadius: 15,
-        }}
+        className={classes.formContainer}
         spacing={3}
         direction="column"
       >
-        <Grid
-          item
-          style={{
-            fontSize: 20,
-            fontWeight: "bold",
-            paddingBottom: 0,
-          }}
-        >
-          Bug Tracker
-        </Grid>
-        <Grid
-          item
-          style={{
-            fontSize: 20,
-            fontWeight: "bold",
-            paddingTop: 0,
-          }}
-        >
-          Welcome To Bug Tracker
+        <Grid item>
+          <Typography variant="h4" className={classes.title}>
+            Bug Tracker
+          </Typography>
+          <Typography variant="h6" className={classes.description}>
+            Welcome To Bug Tracker
+          </Typography>
         </Grid>
         <Grid item>
-          <FormLabel>Name</FormLabel>
           <TextInput
-            placeholder="Enter your Full Name"
-            value={state.data.name}
-            name="name"
-            onChange={handleInputChange}
-          />
-        </Grid>
-
-        <Grid item>
-          <FormLabel>Email Address</FormLabel>
-          <TextInput
+            label="Email Address"
             placeholder="Enter Email Address"
             value={state.data.email}
             name="email"
@@ -126,8 +115,8 @@ export default function LoginForm(props) {
           />
         </Grid>
         <Grid item>
-          <FormLabel>Password</FormLabel>
           <TextInput
+            label="Password"
             placeholder="Enter Password"
             type="password"
             value={state.data.password}
@@ -138,14 +127,21 @@ export default function LoginForm(props) {
 
         <Grid item>
           <Button
-            style={{ width: "100%", height: 45 }}
+            className={classes.button}
             variant="contained"
-            color="primary"
+            color="secondary"
             onClick={handleSumbit}
             disableRipple
           >
             Login
           </Button>
+        </Grid>
+
+        <Grid item>
+          <LinkTag variant="h6" color="primary" component={Link} to="register">
+            {`don't have account? 
+            click here to register.`}
+          </LinkTag>
         </Grid>
       </Grid>
     </div>
