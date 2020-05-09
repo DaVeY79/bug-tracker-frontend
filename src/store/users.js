@@ -3,6 +3,8 @@ import { createSelector } from "reselect";
 import { apiCallBegan } from "./api";
 import moment from "moment";
 
+const tokenKey = "token2";
+
 const slice = createSlice({
   name: "users",
   initialState: {
@@ -25,11 +27,17 @@ const slice = createSlice({
     userAdded: (users, action) => {
       users.list.push(action.payload);
     },
+    userLogedin: (users, action) => {
+      localStorage.setItem(tokenKey, action.payload);
+      // console.log("user data", action.payload);
+      // users.profile = action.payload;
+    },
   },
 });
 
 const {
   userAdded,
+  userLogedin,
   usersRequested,
   usersReceived,
   usersRequestFailed,
@@ -38,6 +46,7 @@ export default slice.reducer;
 
 //Action Creators
 const url = "/users";
+const authUrl = "/auth";
 
 export const loadUsers = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.users;
@@ -54,6 +63,22 @@ export const loadUsers = () => (dispatch, getState) => {
     })
   );
 };
+
+export const registerUser = (user) =>
+  apiCallBegan({
+    url,
+    method: "post",
+    data: user,
+    onSuccess: userLogedin.type,
+  });
+
+export const loginUser = (user) =>
+  apiCallBegan({
+    url: authUrl,
+    method: "post",
+    data: user,
+    onSuccess: userLogedin.type,
+  });
 
 // Selector
 export const getUsersByProject = (projectId) =>

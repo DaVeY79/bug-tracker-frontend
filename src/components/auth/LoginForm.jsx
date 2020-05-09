@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Redirect, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-// import auth from "../../services/authService";
-
-// import backgroundImage from "../../assets/login_background.jpg";
-import TextInput from "../common/textInput";
-
 import { makeStyles } from "@material-ui/core/styles";
 import LinkTag from "@material-ui/core/Link";
+
+import { loginUser } from "../../store/users";
+import TextInput from "../common/textInput";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,8 +45,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoginForm(props) {
-  const classes = useStyles();
-
   const [state, setState] = useState({
     data: {
       email: "",
@@ -55,9 +52,11 @@ export default function LoginForm(props) {
     },
   });
   const [errors, setErrors] = useState({});
-  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  //   const { handleUserChange } = props;
+  const { handleUserChange } = props;
+  const classes = useStyles();
+  const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     const values = { ...state };
@@ -67,17 +66,11 @@ export default function LoginForm(props) {
 
   const handleSumbit = async () => {
     try {
-      const { data } = state;
-      setOpen(true);
-      //   var response = await auth.login(
-      //     data.username,
-      //     data.password,
-      //     data.domain
-      //   );
-      //   handleUserChange();
-      window.location = "/";
+      setLoading(true);
+      dispatch(loginUser(state.data));
+      handleUserChange();
     } catch (ex) {
-      setOpen(false);
+      setLoading(false);
       if (ex.response && ex.response.status === 400) {
         const values = { ...errors };
         values.username = ex.response.data;
@@ -88,7 +81,7 @@ export default function LoginForm(props) {
 
   return (
     <div className={classes.root}>
-      <Backdrop className={classes.backdrop} open={open}>
+      <Backdrop className={classes.backdrop} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
       <Grid

@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Redirect, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
+import { makeStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-// import auth from "../../services/authService";
-
-// import backgroundImage from "../../assets/login_background.jpg";
-import TextInput from "../common/textInput";
-
-import { makeStyles } from "@material-ui/core/styles";
 import LinkTag from "@material-ui/core/Link";
+
+import TextInput from "../common/textInput";
+import { registerUser } from "../../store/users";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,9 +56,9 @@ export default function LoginForm(props) {
     },
   });
   const [errors, setErrors] = useState({});
-  const [open, setOpen] = useState(false);
-
-  //   const { handleUserChange } = props;
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { handleUserChange } = props;
 
   const handleInputChange = (event) => {
     const values = { ...state };
@@ -69,17 +68,11 @@ export default function LoginForm(props) {
 
   const handleSumbit = async () => {
     try {
-      const { data } = state;
-      setOpen(true);
-      //   var response = await auth.login(
-      //     data.username,
-      //     data.password,
-      //     data.domain
-      //   );
-      //   handleUserChange();
-      window.location = "/";
+      setLoading(true);
+      dispatch(registerUser(state.data));
+      handleUserChange();
     } catch (ex) {
-      setOpen(false);
+      setLoading(false);
       if (ex.response && ex.response.status === 400) {
         const values = { ...errors };
         values.username = ex.response.data;
@@ -90,7 +83,7 @@ export default function LoginForm(props) {
 
   return (
     <div className={classes.root}>
-      <Backdrop className={classes.backdrop} open={open}>
+      <Backdrop className={classes.backdrop} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
       <Grid
@@ -154,9 +147,9 @@ export default function LoginForm(props) {
           </LinkTag>
         </Grid>
       </Grid>
-      <a href="https://www.freepik.com/free-photos-vectors/business">
+      {/* <a href="https://www.freepik.com/free-photos-vectors/business">
         Business vector created by pikisuperstar - www.freepik.com
-      </a>
+      </a> */}
     </div>
   );
 }

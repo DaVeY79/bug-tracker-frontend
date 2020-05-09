@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-// import auth from "./services/authService";
+import auth from "../services/authService";
 import LoginForm from "../components/auth/LoginForm";
 import RegisterForm from "../components/auth/RegisterForm";
 
 export default function withAuth(Component) {
   return function WithAuth() {
-    const [user, setUser] = useState(
-      // auth.getJwt() ? true : false
-      false
-    );
+    const [user, setUser] = useState(auth.getJwt() ? true : false);
 
     const handleUserChange = () => {
       setUser(true);
