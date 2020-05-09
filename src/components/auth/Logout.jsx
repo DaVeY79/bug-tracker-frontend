@@ -1,8 +1,9 @@
 import React from "react";
+import auth from "../../services/authService";
 
 export default function Logout() {
   React.useEffect(() => {
-    console.log("logging out...");
+    auth.logout();
     window.location = "/";
   }, []);
 

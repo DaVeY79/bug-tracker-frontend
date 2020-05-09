@@ -81,7 +81,9 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem component={Link} to="logout" onClick={handleClose}>
+                  Logout
+                </MenuItem>
               </Menu>
             </div>
           )}
