@@ -50,7 +50,7 @@ export const loadProjects = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.projects;
 
   const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
-  // if (diffInMinutes < 10) return;
+  if (diffInMinutes < 10) return;
 
   return dispatch(
     apiCallBegan({
