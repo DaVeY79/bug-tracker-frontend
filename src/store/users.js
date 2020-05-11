@@ -17,7 +17,7 @@ const slice = createSlice({
       users.loading = true;
     },
     usersReceived: (users, action) => {
-      users.list = action.payload;
+      users.list = action.payload.users;
       users.loading = false;
       users.lastFetch = Date.now();
     },
@@ -28,7 +28,7 @@ const slice = createSlice({
       users.list.push(action.payload);
     },
     userLogedin: (users, action) => {
-      localStorage.setItem(tokenKey, action.payload);
+      localStorage.setItem(tokenKey, action.payload.user.token);
       // console.log("user data", action.payload);
       // users.profile = action.payload;
     },
@@ -46,7 +46,7 @@ export default slice.reducer;
 
 //Action Creators
 const url = "/users";
-const authUrl = "/auth";
+const authUrl = "/users/login";
 
 export const loadUsers = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.users;
