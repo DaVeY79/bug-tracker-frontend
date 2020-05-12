@@ -93,7 +93,7 @@ export const addBug = (bug) =>
 export const updateBug = (bugId, bug) =>
   apiCallBegan({
     url: url + "/" + bugId,
-    method: "patch",
+    method: "put",
     data: bug,
     onSuccess: bugUpdated.type,
   });
@@ -101,7 +101,7 @@ export const updateBug = (bugId, bug) =>
 export const assignBugToUser = (bugId, userId) =>
   apiCallBegan({
     url: url + "/" + bugId,
-    method: "patch",
+    method: "put",
     data: { userId },
     onSuccess: bugAssignedToUser.type,
   });
@@ -109,7 +109,7 @@ export const assignBugToUser = (bugId, userId) =>
 export const resolveBug = (id) =>
   apiCallBegan({
     url: url + "/" + id,
-    method: "patch",
+    method: "put",
     data: { resolved: true },
     onSuccess: bugResolved.type,
   });
@@ -125,13 +125,13 @@ export const removeBug = (id) =>
 export const getUnresolvedBugs = (projectId) =>
   createSelector(
     (state) => state.entities.bugs.list,
-    (bugs) => bugs.filter((bug) => !bug.resolved && bug.projectId === projectId)
+    (bugs) => bugs.filter((bug) => !bug.resolved && bug.projectId == projectId)
   );
 
 export const getResolvedBugs = (projectId) =>
   createSelector(
     (state) => state.entities.bugs.list,
-    (bugs) => bugs.filter((bug) => bug.resolved && bug.projectId === projectId)
+    (bugs) => bugs.filter((bug) => bug.resolved && bug.projectId == projectId)
   );
 
 export const getBug = (bugId) =>

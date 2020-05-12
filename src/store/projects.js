@@ -73,7 +73,7 @@ export const addProject = (project) =>
 export const updateProject = (projectId, project) =>
   apiCallBegan({
     url: url + "/" + projectId,
-    method: "patch",
+    method: "put",
     data: project,
     onSuccess: projectUpdated.type,
   });

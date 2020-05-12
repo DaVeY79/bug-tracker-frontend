@@ -30,7 +30,7 @@ const AddBugs = () => {
   const query = useQuery();
   const history = useHistory();
 
-  const users = useSelector(getUsersByProject(query.get("project")));
+  const users = useSelector(getUsersByProject(parseInt(query.get("project"))));
   const bug = useSelector(getBug(params.id));
 
   useEffect(() => {
@@ -60,11 +60,15 @@ const AddBugs = () => {
   };
 
   const handleSave = () => {
-    // console.log(state.data);
+    // console.log("submit data", state.data);
+
     if (params.id === "new") {
       dispatch(addBug({ ...state.data, projectId: query.get("project") }));
     } else {
-      dispatch(updateBug(params.id, state.data));
+      const value = { ...state.data };
+      delete value.id;
+      // console.log("state", value);
+      dispatch(updateBug(params.id, value));
     }
 
     history.goBack();
