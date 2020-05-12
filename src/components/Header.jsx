@@ -80,7 +80,7 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
                 <MenuItem component={Link} to="logout" onClick={handleClose}>
                   Logout
                 </MenuItem>

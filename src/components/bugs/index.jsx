@@ -20,6 +20,7 @@ import {
 import Table from "../common/table";
 import Status from "../common/status";
 import useQuery from "../hooks/useQuery";
+import Published from "../common/Published";
 
 const Bugs = () => {
   const dispatch = useDispatch();
@@ -50,8 +51,9 @@ const Bugs = () => {
       ),
     },
     {
-      id: "created",
+      id: "createdAt",
       label: "Created",
+      content: (bug) => <Published time={bug.createdAt} />,
     },
     {
       id: "priority",
@@ -102,13 +104,15 @@ const Bugs = () => {
       ),
     },
     {
-      id: "created",
+      id: "createdAt",
       label: "Created",
+      content: (bug) => <Published time={bug.createdAt} />,
     },
 
     resolved && {
-      id: "finished",
+      id: "updatedAt",
       label: "finished",
+      content: (bug) => <Published time={bug.updatedAt} />,
     },
     {
       key: "status",
