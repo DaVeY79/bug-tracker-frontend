@@ -25,12 +25,10 @@ const slice = createSlice({
       users.loading = false;
     },
     userAdded: (users, action) => {
-      users.list.push(action.payload);
+      users.list.push(action.payload.user);
     },
     userLogedin: (users, action) => {
       localStorage.setItem(tokenKey, action.payload.user.token);
-      // console.log("user data", action.payload);
-      // users.profile = action.payload;
     },
   },
 });

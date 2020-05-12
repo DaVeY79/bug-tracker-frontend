@@ -22,7 +22,7 @@ const AddProjects = () => {
     data: {
       name: "",
       managerId: "",
-      userIds: [],
+      userId: [],
     },
     errors: {},
   });
@@ -102,9 +102,9 @@ const AddProjects = () => {
       <Grid item xs={6}>
         <MultiSelect
           label="Add Users"
-          name="userIds"
+          name="userId"
           items={users}
-          value={state.data.userIds}
+          value={state.data.userId}
           handleChange={handleChange}
         />
       </Grid>

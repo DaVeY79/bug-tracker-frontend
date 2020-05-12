@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as actions from "../api";
+import { getJwt } from "../../services/authService";
 
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
@@ -10,6 +11,8 @@ const api = ({ dispatch }) => (next) => async (action) => {
   next(action);
 
   try {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${getJwt()}`;
+
     const response = await axios.request({
       baseURL: process.env.REACT_APP_API,
       url,

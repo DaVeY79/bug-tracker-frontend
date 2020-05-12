@@ -15,7 +15,7 @@ const slice = createSlice({
       bugs.loading = true;
     },
     bugsReceived: (bugs, action) => {
-      bugs.list = action.payload;
+      bugs.list = action.payload.bugs;
       bugs.loading = false;
       bugs.lastFetch = Date.now();
     },
@@ -23,22 +23,28 @@ const slice = createSlice({
       bugs.loading = false;
     },
     bugAdded: (bugs, action) => {
-      bugs.list.push(action.payload);
+      bugs.list.push(action.payload.bug);
     },
     bugUpdated: (bugs, action) => {
-      const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
-      bugs.list[index] = action.payload;
+      const index = bugs.list.findIndex(
+        (bug) => bug.id === action.payload.bug.id
+      );
+      bugs.list[index] = action.payload.bug;
     },
     bugRemoved: (bugs, action) => {
-      const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
+      const index = bugs.list.findIndex(
+        (bug) => bug.id === action.payload.bug.id
+      );
       bugs.list.splice(index, 1);
     },
     bugResolved: (bugs, action) => {
-      const index = bugs.list.findIndex((bug) => bug.id === action.payload.id);
+      const index = bugs.list.findIndex(
+        (bug) => bug.id === action.payload.bug.id
+      );
       bugs.list[index].resolved = true;
     },
     bugAssignedToUser: (bugs, action) => {
-      const { id: bugId, userId } = action.payload;
+      const { id: bugId, userId } = action.payload.bug;
       const index = bugs.list.findIndex((bug) => bug.id === bugId);
       bugs.list[index].UserId = userId;
     },

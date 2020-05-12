@@ -15,7 +15,7 @@ const slice = createSlice({
       projects.loading = true;
     },
     projectsReceived: (projects, action) => {
-      projects.list = action.payload;
+      projects.list = action.payload.projects;
       projects.loading = false;
       projects.lastFetch = Date.now();
     },
@@ -23,13 +23,13 @@ const slice = createSlice({
       projects.loading = false;
     },
     projectAdded: (projects, action) => {
-      projects.list.push(action.payload);
+      projects.list.push(action.payload.project);
     },
     projectUpdated: (projects, action) => {
       const index = projects.list.findIndex(
         (project) => project.id === action.payload.id
       );
-      projects.list[index] = action.payload;
+      projects.list[index] = action.payload.project;
     },
   },
 });
