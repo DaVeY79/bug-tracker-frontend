@@ -59,9 +59,11 @@ export default function MultipleSelect(props) {
           onChange={handleChange}
           input={<Input labelWidth={labelWidth} />}
           renderValue={(selected) =>
-            selected.map(
-              (item) => `${items.filter((itm) => itm.id === item)[0].name}, `
-            )
+            selected.map((item, index) => {
+              const itemExist = items.filter((itm) => itm.id === item)[0];
+
+              return `${itemExist && itemExist.name}`;
+            })
           }
           MenuProps={MenuProps}
         >

@@ -1,6 +1,6 @@
 // import jwtDecode from "jwt-decode";
 
-const tokenKey = "token2";
+const tokenKey = "authToken";
 
 export function loginWithJwt(jwt) {
   localStorage.setItem(tokenKey, jwt);

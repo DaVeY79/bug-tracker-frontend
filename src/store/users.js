@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import { apiCallBegan } from "./api";
 import moment from "moment";
 
-const tokenKey = "token2";
+import { apiCallBegan } from "./api";
+import { loginWithJwt } from "../services/authService";
 
 const slice = createSlice({
   name: "users",
@@ -28,7 +28,7 @@ const slice = createSlice({
       users.list.push(action.payload.user);
     },
     userLogedin: (users, action) => {
-      localStorage.setItem(tokenKey, action.payload.user.token);
+      loginWithJwt(action.payload.user.token);
     },
   },
 });
