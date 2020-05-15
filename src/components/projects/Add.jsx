@@ -16,6 +16,7 @@ import {
   getProject,
 } from "../../store/projects";
 import { getUsers, loadUsers } from "../../store/users";
+import { getUserId } from "../../services/authService";
 
 const AddProjects = () => {
   const [state, setState] = React.useState({
@@ -33,6 +34,7 @@ const AddProjects = () => {
   const history = useHistory();
   const users = useSelector(getUsers);
   const project = useSelector(getProject(params.id));
+  const userId = parseInt(getUserId());
 
   React.useEffect(() => {
     dispatch(loadProjects());
@@ -40,6 +42,12 @@ const AddProjects = () => {
   }, []);
 
   React.useEffect(() => {
+    if (
+      project[0] &&
+      !(project[0].createdBy === userId || project[0].managerId === userId)
+    )
+      window.location = "/";
+
     populateProject();
   }, [project]);
 
