@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import LinkTag from "@material-ui/core/Link";
 
-import { loginUser } from "../../store/users";
+import { loginUser, getLoading, getStatus } from "../../store/auth";
 import TextInput from "../common/textInput";
 
 const useStyles = makeStyles((theme) => ({
@@ -52,11 +52,16 @@ export default function LoginForm(props) {
     },
   });
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-
-  const { handleUserChange } = props;
+  const status = useSelector(getStatus);
+  const loading = useSelector(getLoading);
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    return () => {
+      if (status === "success") window.location = "/";
+    };
+  }, []);
 
   const handleInputChange = (event) => {
     const values = { ...state };
@@ -66,11 +71,8 @@ export default function LoginForm(props) {
 
   const handleSumbit = async () => {
     try {
-      setLoading(true);
       dispatch(loginUser(state.data));
-      handleUserChange();
     } catch (ex) {
-      setLoading(false);
       if (ex.response && ex.response.status === 400) {
         const values = { ...errors };
         values.username = ex.response.data;

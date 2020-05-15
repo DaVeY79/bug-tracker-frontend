@@ -3,7 +3,6 @@ import { createSelector } from "reselect";
 import moment from "moment";
 
 import { apiCallBegan } from "./api";
-import { loginWithJwt } from "../services/authService";
 
 const slice = createSlice({
   name: "users",
@@ -27,15 +26,11 @@ const slice = createSlice({
     userAdded: (users, action) => {
       users.list.push(action.payload.user);
     },
-    userLogedin: (users, action) => {
-      loginWithJwt(action.payload.user.token);
-    },
   },
 });
 
 const {
   userAdded,
-  userLogedin,
   usersRequested,
   usersReceived,
   usersRequestFailed,
@@ -44,7 +39,6 @@ export default slice.reducer;
 
 //Action Creators
 const url = "/users";
-const authUrl = "/users/login";
 
 export const loadUsers = () => (dispatch, getState) => {
   const { lastFetch } = getState().entities.users;
@@ -61,22 +55,6 @@ export const loadUsers = () => (dispatch, getState) => {
     })
   );
 };
-
-export const registerUser = (user) =>
-  apiCallBegan({
-    url,
-    method: "post",
-    data: user,
-    onSuccess: userLogedin.type,
-  });
-
-export const loginUser = (user) =>
-  apiCallBegan({
-    url: authUrl,
-    method: "post",
-    data: user,
-    onSuccess: userLogedin.type,
-  });
 
 // Selector
 export const getUsersByProject = (projectId) =>
