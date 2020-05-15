@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { apiCallBegan } from "./api";
 import moment from "moment";
+import { getUserId } from "../services/authService";
 
 const slice = createSlice({
   name: "projects",
@@ -81,7 +82,12 @@ export const updateProject = (projectId, project) =>
 //selector
 export const getProjects = createSelector(
   (state) => state.entities.projects.list,
-  (projects) => projects
+  (projects) =>
+    projects.filter(({ createdBy, managerId, userId }) => {
+      const user = parseInt(getUserId());
+
+      return createdBy === user || managerId === user || userId.includes(user);
+    })
 );
 
 export const getProject = (projectId) =>

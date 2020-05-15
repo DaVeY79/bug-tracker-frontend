@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 
 import { apiCallBegan } from "./api";
-import { loginWithJwt } from "../services/authService";
+import { loginWithJwt, setUserId } from "../services/authService";
 
 const slice = createSlice({
   name: "auth",
@@ -16,6 +16,7 @@ const slice = createSlice({
     },
     userReceived: (users, action) => {
       loginWithJwt(action.payload.user.token);
+      setUserId(action.payload.user.id);
       users.loading = false;
       users.status = "success";
     },

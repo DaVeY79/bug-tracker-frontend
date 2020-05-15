@@ -23,6 +23,14 @@ export function getJwt() {
   return localStorage.getItem(tokenKey);
 }
 
+export function setUserId(userId) {
+  localStorage.setItem("userId", userId);
+}
+
+export function getUserId(userId) {
+  return localStorage.getItem("userId");
+}
+
 export default {
   loginWithJwt,
   logout,

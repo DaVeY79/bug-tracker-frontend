@@ -10,10 +10,12 @@ import LinkTag from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
+import UnauthorizeIcon from "@material-ui/icons/NotInterested";
 import BugReportIcon from "@material-ui/icons/BugReport";
 import MemberIcon from "@material-ui/icons/People";
 
 import { loadProjects, getProjects } from "../../store/projects";
+import { getUserId } from "../../services/authService";
 import Table from "../common/table";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +37,7 @@ const Projects = () => {
   const classes = useStyles();
   const disptach = useDispatch();
   const projects = useSelector(getProjects);
+  const userId = parseInt(getUserId());
 
   useEffect(() => {
     disptach(loadProjects());
@@ -80,15 +83,22 @@ const Projects = () => {
     },
     {
       key: "edit",
-      content: (project) => (
-        <IconButton
-          component={Link}
-          to={`project/${project.id}`}
-          color="primary"
-        >
-          <EditIcon />
-        </IconButton>
-      ),
+      label: "Edit",
+      content: (project) => {
+        const check =
+          project.createdBy === userId || project.managerId === userId;
+        return check ? (
+          <IconButton
+            component={Link}
+            to={`project/${project.id}`}
+            color="primary"
+          >
+            <EditIcon />
+          </IconButton>
+        ) : (
+          <UnauthorizeIcon />
+        );
+      },
     },
   ];
 

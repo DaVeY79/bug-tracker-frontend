@@ -62,7 +62,7 @@ export default function MultipleSelect(props) {
             selected.map((item, index) => {
               const itemExist = items.filter((itm) => itm.id === item)[0];
 
-              return `${itemExist && itemExist.name}`;
+              return itemExist ? `${itemExist.name}, ` : "";
             })
           }
           MenuProps={MenuProps}
