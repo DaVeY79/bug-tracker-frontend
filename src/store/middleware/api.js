@@ -11,7 +11,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
   next(action);
 
   try {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${getJwt()}`;
+    axios.defaults.headers.common["Authorization"] = getJwt();
 
     const response = await axios.request({
       baseURL: process.env.REACT_APP_API,
