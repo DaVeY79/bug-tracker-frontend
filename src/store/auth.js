@@ -15,8 +15,8 @@ const slice = createSlice({
       users.loading = true;
     },
     userReceived: (users, action) => {
-      loginWithJwt(action.payload.user.token);
-      setUserId(action.payload.user.id);
+      loginWithJwt(action.payload.token);
+      setUserId(action.payload.id);
       users.loading = false;
       users.status = "success";
     },

@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginForm(props) {
   const [state, setState] = useState({
     data: {
-      email: "",
+      emailId: "",
       password: "",
     },
   });
@@ -104,8 +104,8 @@ export default function LoginForm(props) {
           <TextInput
             label="Email Address"
             placeholder="Enter Email Address"
-            value={state.data.email}
-            name="email"
+            value={state.data.emailId}
+            name="emailId"
             onChange={handleInputChange}
           />
         </Grid>
