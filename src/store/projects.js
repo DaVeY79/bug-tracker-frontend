@@ -93,5 +93,5 @@ export const getProjects = createSelector(
 export const getProject = (projectId) =>
   createSelector(
     (state) => state.entities.projects.list,
-    (projects) => projects.filter((project) => project.id == projectId)
+    (projects) => projects.filter((project) => project.id === projectId)
   );

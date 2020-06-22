@@ -30,7 +30,7 @@ const slice = createSlice({
 });
 
 const {
-  userAdded,
+  // userAdded,
   usersRequested,
   usersReceived,
   usersRequestFailed,

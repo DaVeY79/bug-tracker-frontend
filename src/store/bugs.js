@@ -125,19 +125,19 @@ export const removeBug = (id) =>
 export const getUnresolvedBugs = (projectId) =>
   createSelector(
     (state) => state.entities.bugs.list,
-    (bugs) => bugs.filter((bug) => !bug.resolved && bug.projectId == projectId)
+    (bugs) => bugs.filter((bug) => !bug.resolved && bug.projectId === projectId)
   );
 
 export const getResolvedBugs = (projectId) =>
   createSelector(
     (state) => state.entities.bugs.list,
-    (bugs) => bugs.filter((bug) => bug.resolved && bug.projectId == projectId)
+    (bugs) => bugs.filter((bug) => bug.resolved && bug.projectId === projectId)
   );
 
 export const getBug = (bugId) =>
   createSelector(
     (state) => state.entities.bugs.list,
-    (bugs) => bugs.filter((bug) => bug.id == bugId)
+    (bugs) => bugs.filter((bug) => bug.id === bugId)
   );
 
 export const getBugsByUser = (userId) =>
